@@ -1,16 +1,21 @@
+import ContactCreate from './ContactCreate';
+import ContactList from './ContactList';
+import Section from './Section';
+import Filter from './ContactList/Filter';
+import Header from './Header';
+
+
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+      <Header title="Phonebook"/>
+      <ContactCreate/>
+      <Section title="Contacts">
+        <Filter/>
+            
+        <ContactList/>
+      </Section>
+    </>
   );
 };
