@@ -1,4 +1,4 @@
-// export const selectorAuthStatus = (state) => state.auth.status;
+export const selectorAuthStatus = (state) => state.auth.status;
 // export const selectorAuthToken = (state) => state.auth.data;
 
 
