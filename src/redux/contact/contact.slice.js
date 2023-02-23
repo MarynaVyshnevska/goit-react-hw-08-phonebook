@@ -3,13 +3,6 @@ import { contactsInitState } from './contact.init-state';
 import Notiflix from 'notiflix';
 import { addContactThunk, deleteContactThunk, fetchContacts } from './contact.thunk';
 
-// const contactsInitState = {
-//     items: [],
-//     isLoading: false,
-//     error: null,
-    
-// };
-
 const contactSlice = createSlice({
     name: 'contacts',
     initialState: contactsInitState,
@@ -20,6 +13,7 @@ const contactSlice = createSlice({
         }).addCase(fetchContacts.fulfilled, (state, { payload }) => {
             state.isLoading = false;
             state.items = payload;
+            state.error = null;
         }).addCase(fetchContacts.rejected, (state, { payload }) => {
             state.isLoading = false;
             state.error = payload;

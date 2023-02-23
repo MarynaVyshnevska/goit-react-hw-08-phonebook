@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // import { selectorAuthToken } from "./auth.selector";
 
-import { privateApi, publicApi, token } from "http/http";
+import { publicApi, token } from "http/http";
 
 export const authSignUpThunk = createAsyncThunk('signup', async (values) => {
     const {data} = await publicApi.post('/users/signup', values);
@@ -20,26 +20,14 @@ export const authLoginThunk = createAsyncThunk('login', async (values) => {
 });
 
 export const authLogOutThunk = createAsyncThunk('logout', async () => {
-    const {data} = await privateApi.post('/users/logout');
+    const {data} = await publicApi.post('/users/logout');
 
     token.remove();
     
     return data;
 });
 
-// export const getProfileThunk = createAsyncThunk('profile', async (_, {getState, rejectWithValue}) => {
-//     const {token} = getState().auth;
-//     console.log(token);
-//     if (!token) {
-//         return rejectWithValue;
-//     }
-//     token.set(token);
-//     const { data } = await privateApi.get('/users/current');
-//     console.log(data)
-//     return data;
-// })
-
-export const getProfileThunk = createAsyncThunk('profile', async (_, { getState, rejectWithValue }) => {
+export const authProfileCurrentThunk = createAsyncThunk('profile', async (_, { getState, rejectWithValue }) => {
     const { token } = getState().auth;
     if (token === null) {
         return rejectWithValue('Sorry, you can autorized again');
@@ -47,22 +35,10 @@ export const getProfileThunk = createAsyncThunk('profile', async (_, { getState,
 
     try {
         token.set(token);
-        const { data } = await privateApi.get('/users/current');
+        const { data } = await publicApi.get('/users/current');
         console.log(data);
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
     }
 })
-
-// export const getProfileThunk = createAsyncThunk('profile', async (_, {getState, rejectWithValue}) => {
-//     const tokenState = getState().auth.data.token;
-//     // console.log(getState().auth.data.token);
-//     if (token === null) {
-//         return rejectWithValue('Sorry, you can autorized again');
-//     };
-
-//     token.set(tokenState);
-//     const { data } = await privateApi.get('/users/current');
-//     console.log(data)
-// })

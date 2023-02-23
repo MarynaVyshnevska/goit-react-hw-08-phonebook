@@ -48,7 +48,7 @@ const initialState = {
 
 const LoginPage = () => {
     const [values, setValues] = useState(initialState);
-    const status = useSelector(selectorAuthStatus);
+    // const status = useSelector(selectorAuthStatus);
     // const [isLoading, setIsLoading] = useState(false); 
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const LoginPage = () => {
         <>
             <Link to='/' replace>to home page</Link>
 
-            {status === STATUS.loading && <Spinner/>}
+            {/* {status === STATUS.loading && <Spinner/>} */}
             <h2>Login Page</h2>
 
             <Box
