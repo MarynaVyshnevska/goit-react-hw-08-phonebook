@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { selectorAuthProfile, selectorAuthToken } from "redux/auth/auth.selector";
 import { getProfileThunk } from "redux/auth/auth.thunk";
@@ -19,7 +19,7 @@ export const Navigation = () => {
     const profile = useSelector(selectorAuthProfile);
     
 
-    const location = useLocation();
+    // const location = useLocation();
     
     useEffect(() => {
         if (token) {

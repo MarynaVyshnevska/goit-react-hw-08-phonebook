@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import { Formik, ErrorMessage, Form, Field } from 'formik'; 
-import Spinner from "components/Spinner/Spinner";
-import * as yup from 'yup';
+// import Spinner from "components/Spinner/Spinner";
+// import * as yup from 'yup';
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -27,18 +27,18 @@ const inittialValues = {
     password: '',
 };
 
-const schemaUser = yup.object().shape({
-    name: yup.string().min(2, 'Your name is too short')
-        .max(50, 'Your name must not be longer than 40 characters')
-        .required('User name required'),
-    email: yup.string().min(5, 'Your email is too short')
-        .max(40, 'Your email must be shorter 40 characters')
-        .required('User email required'),
-    password: yup.string()
-        .min(7, 'Your password must be longer than 7 characters and must contain numbers and at least 1 capital letter')
-        .max(40, 'your password must not be longer than 40 characters')
-        .required('User password required'),
-})
+// const schemaUser = yup.object().shape({
+//     name: yup.string().min(2, 'Your name is too short')
+//         .max(50, 'Your name must not be longer than 40 characters')
+//         .required('User name required'),
+//     email: yup.string().min(5, 'Your email is too short')
+//         .max(40, 'Your email must be shorter 40 characters')
+//         .required('User email required'),
+//     password: yup.string()
+//         .min(7, 'Your password must be longer than 7 characters and must contain numbers and at least 1 capital letter')
+//         .max(40, 'your password must not be longer than 40 characters')
+//         .required('User password required'),
+// })
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -62,7 +62,7 @@ const CssTextField = styled(TextField)({
 
 const JoinPage = () => {
     const [values, setValues] = useState(inittialValues);
-    const [isLoading, setIsLoading] = useState(false); 
+    // const [isLoading, setIsLoading] = useState(false); 
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -98,7 +98,7 @@ const JoinPage = () => {
     }
     return (
         <>
-            {isLoading && <p><Spinner /></p>}
+            {/* {isLoading && <p><Spinner /></p>} */}
             
             <Box
                 component="form"
