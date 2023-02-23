@@ -4,39 +4,39 @@ import { authReducer } from "./auth/auth.slice";
 import { contactsInitState } from "./contact/contact.init-state";
 import { contactsReducer } from "./contact/contact.slice";
 import { filterInitState, filterReducer } from "./contact/filter.slice";
-// import {
-//     persistStore,
-//     FLUSH,
-//     REHYDRATE,
-//     PAUSE,
-//     PERSIST,
-//     PURGE,
-//     REGISTER, } from 'redux-persist';
-import { persistStore } from 'redux-persist';
+import {
+    persistStore,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER, } from 'redux-persist';
+// import { persistStore } from 'redux-persist';
 
 
 const initState = {
+    auth: authInitState,
     contacts: contactsInitState,
     filter: filterInitState,
-    auth: authInitState,
     
 }
 export const store = configureStore({
     preloadedState: initState,
     devTools: true,
     reducer: {
+        auth: authReducer,
         contacts: contactsReducer,
         filter: filterReducer,
-        auth: authReducer,
         
     },
 
-    // middleware: (getDefaultMiddleware) =>
-    //     getDefaultMiddleware({
-    //         serializableCheck: {
-    //             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    //         },
-    //     }),
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
    
 });
 

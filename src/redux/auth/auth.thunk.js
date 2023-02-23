@@ -28,26 +28,41 @@ export const authLogOutThunk = createAsyncThunk('logout', async () => {
 });
 
 // export const getProfileThunk = createAsyncThunk('profile', async (_, {getState, rejectWithValue}) => {
-//     const stateToken = getState().auth;
-//     console.log(stateToken);
-//     if (!stateToken) {
+//     const {token} = getState().auth;
+//     console.log(token);
+//     if (!token) {
 //         return rejectWithValue;
 //     }
-//     token.set(stateToken);
+//     token.set(token);
 //     const { data } = await privateApi.get('/users/current');
 //     console.log(data)
 //     return data;
 // })
 
-export const getProfileThunk = createAsyncThunk('profile', async (_, {getState, rejectWithValue}) => {
+export const getProfileThunk = createAsyncThunk('profile', async (_, { getState, rejectWithValue }) => {
     const { token } = getState().auth;
-    console.log(token);
     if (token === null) {
         return rejectWithValue('Sorry, you can autorized again');
-    };
+    }
 
-    token.set(token);
-    const { data } = await privateApi.get('/users/current');
-    console.log(data)
-
+    try {
+        token.set(token);
+        const { data } = await privateApi.get('/users/current');
+        console.log(data);
+        return data;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
 })
+
+// export const getProfileThunk = createAsyncThunk('profile', async (_, {getState, rejectWithValue}) => {
+//     const tokenState = getState().auth.data.token;
+//     // console.log(getState().auth.data.token);
+//     if (token === null) {
+//         return rejectWithValue('Sorry, you can autorized again');
+//     };
+
+//     token.set(tokenState);
+//     const { data } = await privateApi.get('/users/current');
+//     console.log(data)
+// })

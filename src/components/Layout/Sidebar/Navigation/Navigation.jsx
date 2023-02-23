@@ -26,7 +26,7 @@ export const Navigation = () => {
             dispatch(getProfileThunk());
         }
     }, [token, dispatch]);
-
+    console.log(profile);
     return (
         <div
             className="d-flex flex-column justify-content-between h-100"
@@ -38,8 +38,8 @@ export const Navigation = () => {
                 
                 {token && (
                     <>
-                        <h2 className="h3 mb-4">Welcome back, {profile.user.name}!</h2>
-                        <p>Your registered email is {profile.user.email}</p>
+                        <h2 className="h3 mb-4">Welcome back, {profile.name}!</h2>
+                        <p>Your registered email is {profile.email}</p>
                     </>
                 )}
 

@@ -12,12 +12,12 @@ import { addContactThunk } from 'redux/contact/contact.thunk';
 
 const initialValues ={
     name: '',
-    phone: '',
+    number: '',
 }
 
 const schemaContact = yup.object().shape({
     name: yup.string().max(50).required(),
-    phone: yup.string().min(3).max(15).required(),
+    number: yup.string().min(3).max(15).required(),
 })
 
 
@@ -59,12 +59,12 @@ const ContactCreate = () => {
                         <p >Phone</p>
                         <InputPhone
                             type="tel"
-                            name="phone"
+                            name="number"
                             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                             required
                         />
-                        <ErrorMessage name="phone" component="div"/>      
+                        <ErrorMessage name="number" component="div"/>      
                     </label>
                 </div>
                 

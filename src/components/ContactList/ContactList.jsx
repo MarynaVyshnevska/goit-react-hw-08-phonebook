@@ -32,7 +32,7 @@ const ContactList = () => {
     return (
         <ul className={css.ContactList__list}>
             {!error && !isLoading &&
-            (filteredContacts.map(({ contactId, name, phone }) => (
+            (filteredContacts.map(({ contactId, name, number }) => (
             
                 <li key={contactId}
                     className={css.ContactList__item}>
@@ -40,7 +40,7 @@ const ContactList = () => {
                         return word[0].toUpperCase() + word.substring(1);
                     }).join(" ")}
                     </p>
-                    <p className={css.ContactList__phone}>{phone}</p>
+                    <p className={css.ContactList__phone}>{number}</p>
                     <button
                         type="button"
                         className={css.ContactList__button}
