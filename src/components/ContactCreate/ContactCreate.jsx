@@ -26,10 +26,10 @@ const ContactCreate = () => {
     const dispatch = useDispatch();
         
     const handleSubmit = (values, {resetForm}) => {
-        // console.log(values);
+        console.log(values);
         const formContactData = values;
         dispatch(addContactThunk({
-            id: nanoid(),
+            contactId: nanoid(),
             ...formContactData
         }));
         
@@ -78,7 +78,7 @@ const ContactCreate = () => {
 
 export default ContactCreate;
 ContactCreate.propTypes = {
-    id: PropTypes.string,
+    contactId: PropTypes.string,
     name: PropTypes.string,
     phone: PropTypes.string,
 }

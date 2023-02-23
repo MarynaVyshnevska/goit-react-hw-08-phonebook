@@ -32,9 +32,9 @@ const ContactList = () => {
     return (
         <ul className={css.ContactList__list}>
             {!error && !isLoading &&
-            (filteredContacts.map(({ id, name, phone }) => (
+            (filteredContacts.map(({ contactId, name, phone }) => (
             
-                <li key={id}
+                <li key={contactId}
                     className={css.ContactList__item}>
                     <p className={css.ContactList__name}>{name.split(" ").map((word) => {
                         return word[0].toUpperCase() + word.substring(1);
@@ -44,7 +44,7 @@ const ContactList = () => {
                     <button
                         type="button"
                         className={css.ContactList__button}
-                        onClick={() => dispatch(deleteContactThunk(id))}
+                        onClick={() => dispatch(deleteContactThunk(contactId))}
                     >
                         Delete <TfiCut size={10} />
                     </button>
@@ -60,7 +60,7 @@ export default ContactList;
 
 // ContactList.propTypes = {
 //     filteredContacts: PropTypes.arrayOf(PropTypes.exact({
-//       id: PropTypes.string.isRequired,
+//       contactId: PropTypes.string.isRequired,
 //       name: PropTypes.string.isRequired,
 //       phone: PropTypes.string.isRequired,
 //     })),

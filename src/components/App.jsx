@@ -30,7 +30,7 @@ export const App = () => {
 
               {/* <Route path='' element={<PublicRoute/>}> */}
                 <Route path='login' element={<Section title="Hello, use your email and password to enter our PhoneBook"><LoginPage/></Section>} />
-                <Route path='register' element={<Section title="Create new user"><JoinPage/></Section>} />
+                <Route path='join' element={<Section title="Create new user"><JoinPage/></Section>} />
               {/* </Route> */}
               
               {/* <Route path='' element={<PrivateRoute/>}> */}

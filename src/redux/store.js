@@ -14,10 +14,12 @@ import { filterInitState, filterReducer } from "./contact/filter.slice";
 //     REGISTER, } from 'redux-persist';
 import { persistStore } from 'redux-persist';
 
+
 const initState = {
     contacts: contactsInitState,
     filter: filterInitState,
     auth: authInitState,
+    
 }
 export const store = configureStore({
     preloadedState: initState,
@@ -26,6 +28,7 @@ export const store = configureStore({
         contacts: contactsReducer,
         filter: filterReducer,
         auth: authReducer,
+        
     },
 
     // middleware: (getDefaultMiddleware) =>

@@ -51,7 +51,7 @@ const contactSlice = createSlice({
             state.isLoading = true;
         }).addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
             state.isLoading = false;
-            state.items = state.items.filter(item => item.id !== payload.id)
+            state.items = state.items.filter(item => item.contactId !== payload.contactId)
         }).addCase(deleteContactThunk.rejected, (state, { payload }) => {
             state.isLoading = false;
             state.error = payload;

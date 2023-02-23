@@ -10,7 +10,7 @@ export const publicApi = axios.create({
 
 export const token = {
     set: (token) => {
-        privateApi.defaults.headers.common.Authorization = token;
+        privateApi.defaults.headers.common.Authorization = `Bearer ${token}`;
     },
     remove: () => {
         privateApi.defaults.headers.common.Authorization = null;

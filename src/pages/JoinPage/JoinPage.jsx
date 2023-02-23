@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { Formik, ErrorMessage, Form, Field } from 'formik'; 
 import Spinner from "components/Spinner/Spinner";
 import * as yup from 'yup';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import Box from '@mui/material/Box';
@@ -15,8 +15,11 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import { styled } from '@mui/material/styles';
-import axios from "axios";
+// import axios from "axios";
 import Notiflix from "notiflix";
+// import { publicApi } from "http/http";
+import { authSignUpThunk } from "redux/auth/auth.thunk";
+import { useDispatch } from "react-redux";
 
 const inittialValues = {
     email: '',
@@ -61,6 +64,8 @@ const JoinPage = () => {
     const [values, setValues] = useState(inittialValues);
     const [isLoading, setIsLoading] = useState(false); 
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -76,9 +81,13 @@ const JoinPage = () => {
         evt.preventDefault();
         // console.log(values);
         try {
-            setIsLoading(true);
-            await axios.post('https://connections-api.herokuapp.com/users/signup', values);
-            setIsLoading(false);
+            // setIsLoading(true);
+            // await publicApi.post('/users/signup', values);
+            await dispatch(authSignUpThunk(values)).unwrap();
+            // Notiflix.Notify.success("It's ok!");
+            // console.log(data);
+            navigate('/', { replace: true });
+            // setIsLoading(false);
             Notiflix.Notify.success("It's ok!");
                            
         } catch (error) {
@@ -144,7 +153,7 @@ const JoinPage = () => {
                         value={values.password}
                     />
                 </FormControl>
-                <Link to='/login' className='d-block my-4'>
+                <Link to='login' className='d-block my-4'>
                     Already has account?
                 </Link>
                 <button className="w-100 mt-2 btn btn-lg btn-primary" type="submit">
