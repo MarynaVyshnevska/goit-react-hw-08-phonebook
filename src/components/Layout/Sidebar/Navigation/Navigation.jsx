@@ -2,11 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { selectorAuthProfile, selectorAuthToken } from "redux/auth/auth.selector";
+import { selectorAuthToken } from "redux/auth/auth.selector";
 import { getProfileThunk } from "redux/auth/auth.thunk";
-
-
-
 
 
 const getActiveClassName = ({ isActive }) => {
@@ -16,7 +13,8 @@ const getActiveClassName = ({ isActive }) => {
 export const Navigation = () => {
     const dispatch = useDispatch();
     const token = useSelector(selectorAuthToken);
-    const profile = useSelector(selectorAuthProfile);
+    // const profile = useSelector(selectorAuthProfile);
+    // const profile = token.user;
     
 
     // const location = useLocation();
@@ -26,7 +24,7 @@ export const Navigation = () => {
             dispatch(getProfileThunk());
         }
     }, [token, dispatch]);
-    console.log(profile);
+    // console.log(profile);
     return (
         <div
             className="d-flex flex-column justify-content-between h-100"
@@ -38,8 +36,8 @@ export const Navigation = () => {
                 
                 {token && (
                     <>
-                        <h2 className="h3 mb-4">Welcome back, {profile.name}!</h2>
-                        <p>Your registered email is {profile.email}</p>
+                        {/* <h2 className="h3 mb-4">Welcome back, {profile.name}!</h2> */}
+                        {/* <p>Your registered email is {profile.email}</p> */}
                     </>
                 )}
 

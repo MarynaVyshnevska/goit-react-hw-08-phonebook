@@ -21,7 +21,7 @@ const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 export const App = () => {
   return (
     <>
-      <BrowserRouter basename='goit-react-hw-08-phonebook'>>
+      <BrowserRouter basename='goit-react-hw-08-phonebook'>
         <Layout>
           <Suspense fallback={<Spinner />}>
             
