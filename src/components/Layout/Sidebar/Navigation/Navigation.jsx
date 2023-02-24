@@ -49,12 +49,10 @@ export const Navigation = () => {
 
                 {token ?
                     <>
-                        <NavLink to='create' className={getActiveClassName}>
-                            Create new contact
+                        <NavLink to='contacts' className={getActiveClassName}>
+                            PhoneBook
                         </NavLink>
-                        <NavLink to='search' className={getActiveClassName}>
-                            Find contact
-                        </NavLink>
+                        
 
                     </> : <>
                         <NavLink to='join' className={getActiveClassName}>
