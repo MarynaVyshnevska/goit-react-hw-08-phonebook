@@ -32,9 +32,9 @@ const ContactList = () => {
     return (
         <ul className={css.ContactList__list}>
             {!error && !isLoading &&
-            (filteredContacts.map(({ contactId, name, number }) => (
+            (filteredContacts.map(({ id, name, number }) => (
             
-                <li key={contactId}
+                <li key={id}
                     className={css.ContactList__item}>
                     <p className={css.ContactList__name}>{name.split(" ").map((word) => {
                         return word[0].toUpperCase() + word.substring(1);
@@ -44,7 +44,7 @@ const ContactList = () => {
                     <button
                         type="button"
                         className={css.ContactList__button}
-                        onClick={() => dispatch(deleteContactThunk(contactId))}
+                        onClick={() => dispatch(deleteContactThunk(id))}
                     >
                         Delete <TfiCut size={10} />
                     </button>

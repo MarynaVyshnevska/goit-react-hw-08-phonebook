@@ -90,9 +90,9 @@ const contactSlice = createSlice({
         }).addCase(refreshContactThunk.fulfilled, (state, { payload }) => {
             state.status = STATUS.success;
             state.isLoading = false;
-            const { contactId, name, number } = payload;
-            const i = state.items.findIndex(item => item.contactId === contactId);
-            state.items[i] = { contactId, name, number }
+            const { id, name, number } = payload;
+            const i = state.items.findIndex(item => item.id === id);
+            state.items[i] = { id, name, number }
             Notiflix.Notify.success('Your contact was update successfully!');
         }).addCase(refreshContactThunk.rejected, (state, { payload }) => {
             state.isLoading = false;
