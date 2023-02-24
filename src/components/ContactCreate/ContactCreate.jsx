@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
@@ -29,7 +29,7 @@ const ContactCreate = () => {
         console.log(values);
         const formContactData = values;
         dispatch(addContactThunk({
-            contactId: nanoid(),
+            // contactId: nanoid(),
             ...formContactData
         }));
         
@@ -78,7 +78,7 @@ const ContactCreate = () => {
 
 export default ContactCreate;
 ContactCreate.propTypes = {
-    contactId: PropTypes.string,
+    // contactId: PropTypes.string,
     name: PropTypes.string,
     phone: PropTypes.string,
 }
