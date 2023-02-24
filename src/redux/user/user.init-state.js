@@ -1,6 +1,6 @@
 const { STATUS } = require("constans/status.constans");
 
-export const profileInitState = {
+export const userInitState = {
   status: STATUS.idle,
   data: null,
 };

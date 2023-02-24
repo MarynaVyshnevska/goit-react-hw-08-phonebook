@@ -2,9 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { privateApi, token } from "http/http";
 import { selectAuthToken } from "redux/auth/auth.selector";
 
-export const getProfileThunk = createAsyncThunk('profile', async (state, { getState, rejectWithValue }) => {
+export const getUserThunk = createAsyncThunk('user', async (state, { getState, rejectWithValue }) => {
     const stateToken = selectAuthToken(getState());
+    const stateCurrent = getState();
     console.log(stateToken);
+    console.log(stateCurrent);
     
     if (!stateToken) {
         return rejectWithValue('Sorry, you can autorized again');
@@ -14,7 +16,5 @@ export const getProfileThunk = createAsyncThunk('profile', async (state, { getSt
     console.log(data);
     
     return data;
-    // token.set(stateToken);
-    // const { data } = await privateApi.get('/users/current');
-    // return data;
+
 })

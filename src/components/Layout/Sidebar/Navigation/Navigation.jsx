@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 // import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { selectAuthToken } from "redux/auth/auth.selector";
-import { selectProfile } from "redux/profile/profile.selector";
-import { getProfileThunk } from "redux/profile/profile.thunk";
+// import { selectProfile } from "redux/profile/profile.selector";
+import { getUserThunk } from "redux/user/user.thunk";
 
 
 const getActiveClassName = ({ isActive }) => {
@@ -14,7 +14,7 @@ const getActiveClassName = ({ isActive }) => {
 export const Navigation = () => {
     const dispatch = useDispatch();
     const token = useSelector(selectAuthToken);
-    const profile = useSelector(selectProfile);
+    const profile = useSelector(state=> state.auth.user);
         
     console.log(token);
     
@@ -23,7 +23,7 @@ export const Navigation = () => {
     
     useEffect(() => {
         if (token) {
-            dispatch(getProfileThunk());
+            dispatch(getUserThunk());
         }
     }, [token, dispatch]);
     console.log(profile);

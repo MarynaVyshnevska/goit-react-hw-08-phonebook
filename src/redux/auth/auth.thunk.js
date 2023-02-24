@@ -1,6 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-
 import { privateApi, publicApi, token } from "http/http";
 // import { selectAuthToken } from "./auth.selector";
 
@@ -9,6 +7,7 @@ export const authSignUpThunk = createAsyncThunk('signup', async (values, thunkAP
     try {
         const { data } = await privateApi.post('/users/signup', values);
         token.set(data.token);
+        // console.log(data);
         return data;
     } catch (error) {
         return thunkAPI.rejectWithValue('Sorry, something went wrong');

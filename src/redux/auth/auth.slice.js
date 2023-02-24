@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer } from "redux-persist";
 import Notiflix from "notiflix";
 
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: authInitState,
@@ -14,7 +15,7 @@ const authSlice = createSlice({
             state.status = STATUS.loading;
         }).addCase(authSignUpThunk.fulfilled, (state, {payload}) => {
             state.status = STATUS.success;
-            state.user = payload.user;
+            state.values = payload.user;
             state.token = payload.token;
             state.isLoggedIn = true;
             Notiflix.Notify.info('Hello!');
@@ -26,7 +27,7 @@ const authSlice = createSlice({
             state.status = STATUS.loading;
         }).addCase(authLoginThunk.fulfilled, (state, {payload}) => {
             state.status = STATUS.success;
-            state.user = payload.user;
+            state.values = payload.user;
             state.token = payload.token;
             state.isLoggedIn = true;
             Notiflix.Notify.info('Welcome to your virtual Phonebook');
@@ -38,7 +39,7 @@ const authSlice = createSlice({
             state.status = STATUS.loading;
         }).addCase(authLogOutThunk.fulfilled, (state, {payload}) => {
             state.status = STATUS.success;
-            state.user = authInitState.user;
+            state.values = authInitState.values;
             state.isLoggedIn = authInitState.isLoggedIn;
             state.token = authInitState.token;
             Notiflix.Notify.info('Bye');
