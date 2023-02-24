@@ -1,44 +1,40 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import { selectorAuthToken } from "./auth.selector";
 
-import { publicApi, token } from "http/http";
 
-export const authSignUpThunk = createAsyncThunk('signup', async (values) => {
-    const {data} = await publicApi.post('/users/signup', values);
+import { privateApi, publicApi, token } from "http/http";
+// import { selectAuthToken } from "./auth.selector";
 
-    token.set(data.token);
+export const authSignUpThunk = createAsyncThunk('signup', async (values, thunkAPI) => {
     
-    return data;
-})
-
-export const authLoginThunk = createAsyncThunk('login', async (values) => {
-    const {data} = await publicApi.post('/users/login', values);
-
-    token.set(data.token);
-    // console.log(data)
-    return data;
-});
-
-export const authLogOutThunk = createAsyncThunk('logout', async () => {
-    const {data} = await publicApi.post('/users/logout');
-
-    token.remove();
-    
-    return data;
-});
-
-export const authProfileCurrentThunk = createAsyncThunk('profile', async (_, { getState, rejectWithValue }) => {
-    const { token } = getState().auth;
-    if (token === null) {
-        return rejectWithValue('Sorry, you can autorized again');
-    }
-
     try {
-        token.set(token);
-        const { data } = await publicApi.get('/users/current');
-        console.log(data);
+        const { data } = await privateApi.post('/users/signup', values);
+        token.set(data.token);
         return data;
     } catch (error) {
-        return rejectWithValue(error.message);
+        return thunkAPI.rejectWithValue('Sorry, something went wrong');
     }
+    
 })
+
+export const authLoginThunk = createAsyncThunk('login', async (values, thunkAPI) => {
+    try {
+        const { data } = await publicApi.post('/users/login', values);
+        token.set(data.token);
+        return data;
+        // console.log(data)
+    } catch (error) {
+        return thunkAPI.rejectWithValue('Sorry, something went wrong');
+    }
+});
+
+export const authLogOutThunk = createAsyncThunk('logout', async (values, thunkAPI) => {
+    try {
+        const { data } = await privateApi.post('/users/logout');
+        token.remove();//*
+        return data;//*
+    } catch (error) {
+        
+    }
+    
+});
+

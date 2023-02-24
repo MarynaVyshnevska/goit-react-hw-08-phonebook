@@ -12,15 +12,17 @@ import {
     PERSIST,
     PURGE,
     REGISTER, } from 'redux-persist';
-// import { persistStore } from 'redux-persist';
+import { profileReducer } from "./profile/profile.slice";
+import { profileInitState } from "./profile/profile.init-state";
 
 
 const initState = {
     auth: authInitState,
     contacts: contactsInitState,
     filter: filterInitState,
-    
+    profile: profileInitState,
 }
+
 export const store = configureStore({
     preloadedState: initState,
     devTools: true,
@@ -28,7 +30,7 @@ export const store = configureStore({
         auth: authReducer,
         contacts: contactsReducer,
         filter: filterReducer,
-        
+        profile: profileReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

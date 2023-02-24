@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { selectAuthProfile, selectAuthToken } from "redux/auth/auth.selector";
-import { authProfileCurrentThunk, } from "redux/auth/auth.thunk";
+import { selectAuthToken } from "redux/auth/auth.selector";
+import { selectProfile } from "redux/profile/profile.selector";
+import { getProfileThunk } from "redux/profile/profile.thunk";
 
 
 const getActiveClassName = ({ isActive }) => {
@@ -13,15 +14,16 @@ const getActiveClassName = ({ isActive }) => {
 export const Navigation = () => {
     const dispatch = useDispatch();
     const token = useSelector(selectAuthToken);
-    const profile = useSelector(selectAuthProfile);
+    const profile = useSelector(selectProfile);
+        
+    console.log(token);
     
-    console.log(profile);
 
     // const location = useLocation();
     
     useEffect(() => {
         if (token) {
-            dispatch(authProfileCurrentThunk());
+            dispatch(getProfileThunk());
         }
     }, [token, dispatch]);
     console.log(profile);
@@ -36,8 +38,8 @@ export const Navigation = () => {
                 
                 {token && (
                     <>
-                        <h2 className="h3 mb-4">Welcome back, {profile.name}!</h2>
-                        <p>Your registered email is {profile.email}</p>
+                        <h2 className="h3 mb-4">Welcome back, {}!</h2>
+                        <p>Your registered email is {}</p>
                     </>
                 )}
 

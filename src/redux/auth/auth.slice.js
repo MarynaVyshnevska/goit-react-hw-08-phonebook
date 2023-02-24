@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "constans/status.constans";
 import { authInitState } from "./auth.init-state";
-import { authLoginThunk, authLogOutThunk, authProfileCurrentThunk, authSignUpThunk } from "./auth.thunk";
+import { authLoginThunk, authLogOutThunk, authSignUpThunk } from "./auth.thunk";
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from "redux-persist";
+import Notiflix from "notiflix";
 
 const authSlice = createSlice({
     name: 'auth',
@@ -16,8 +17,10 @@ const authSlice = createSlice({
             state.user = payload.user;
             state.token = payload.token;
             state.isLoggedIn = true;
+            Notiflix.Notify.info('Hello!');
         }).addCase(authSignUpThunk.rejected, state => {
             state.status = STATUS.error;
+            Notiflix.Notify.warning('Your email or password were wrong');
         })
             .addCase(authLoginThunk.pending, state => {
             state.status = STATUS.loading;
@@ -26,31 +29,22 @@ const authSlice = createSlice({
             state.user = payload.user;
             state.token = payload.token;
             state.isLoggedIn = true;
+            Notiflix.Notify.info('Welcome to your virtual Phonebook');
         }).addCase(authLoginThunk.rejected, state => {
             state.status = STATUS.error;
-        })
-            .addCase(authProfileCurrentThunk.pending, state => {
-                state.status = STATUS.loading;
-                state.isRefreshing = true;
-                
-        }).addCase(authProfileCurrentThunk.fulfilled, (state, {payload}) => {
-            state.status = STATUS.success;
-            state.user = payload.user;
-            state.isLoggedIn = true;
-            state.isRefreshing = true;
-        }).addCase(authProfileCurrentThunk.rejected, state => {
-            state.status = STATUS.error;
-            state.isRefreshing = true;
+            Notiflix.Notify.warning('Your email or password were wrong');
         })
             .addCase(authLogOutThunk.pending, state => {
             state.status = STATUS.loading;
         }).addCase(authLogOutThunk.fulfilled, (state, {payload}) => {
             state.status = STATUS.success;
-            state.user = null;
-            state.isLoggedIn = false;
-            state.token = null;
+            state.user = authInitState.user;
+            state.isLoggedIn = authInitState.isLoggedIn;
+            state.token = authInitState.token;
+            Notiflix.Notify.info('Bye');
         }).addCase(authLogOutThunk.rejected, state => {
             state.status = STATUS.error;
+            Notiflix.Notify.warning('Your email or password were wrong');
         })
     }
 })
