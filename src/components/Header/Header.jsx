@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { AppRegistrationRounded, CottageRounded } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { selectAuthToken } from "redux/auth/auth.selector";
 
 
 const Header = ({ title }) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const token = useSelector(selectAuthToken);
     
     return (
