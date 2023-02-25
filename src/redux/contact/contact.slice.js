@@ -76,9 +76,9 @@ const contactSlice = createSlice({
                 state.status = STATUS.loading;
         }).addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
             state.status = STATUS.success;
-            state.isLoading = false;
             state.items = state.items.filter(item => item.contactId !== payload.contactId);
             Notiflix.Notify.success('Your contact deleted successfully!');
+            state.isLoading = false;
         }).addCase(deleteContactThunk.rejected, (state, { payload }) => {
             state.isLoading = false;
             state.error = payload;

@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { selectAuthToken } from "redux/auth/auth.selector";
+import { selectAuthToken, selectAuthValues } from "redux/auth/auth.selector";
+import { authLogOutThunk } from "redux/auth/auth.thunk";
 // import { selectProfile } from "redux/profile/profile.selector";
 import { getUserThunk } from "redux/user/user.thunk";
 
@@ -14,9 +15,9 @@ const getActiveClassName = ({ isActive }) => {
 export const Navigation = () => {
     const dispatch = useDispatch();
     const token = useSelector(selectAuthToken);
-    const profile = useSelector(state=> state.auth.user);
+    const profile = useSelector(selectAuthValues);
         
-    console.log(token);
+    // console.log(token);
     
 
     // const location = useLocation();
@@ -38,8 +39,8 @@ export const Navigation = () => {
                 
                 {token && (
                     <>
-                        <h2 className="h3 mb-4">Welcome back, {}!</h2>
-                        <p>Your registered email is {}</p>
+                        <h2 className="h3 mb-4">Welcome back, {profile.name}!</h2>
+                        <p>Your registered email is {profile.email}</p>
                     </>
                 )}
 
@@ -52,7 +53,7 @@ export const Navigation = () => {
                         <NavLink to='contacts' className={getActiveClassName}>
                             PhoneBook
                         </NavLink>
-                        
+                        <button type="button" onClick={() => dispatch(authLogOutThunk())}>Log Out</button>
 
                     </> : <>
                         <NavLink to='join' className={getActiveClassName}>

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectAuthToken } from "redux/auth/auth.selector";
-
+  
 const HomePage = () => {
     const navigate = useNavigate();
     const token = useSelector(selectAuthToken);

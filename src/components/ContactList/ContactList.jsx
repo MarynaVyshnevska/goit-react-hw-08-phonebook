@@ -7,6 +7,7 @@ import { selectError,  selectIsLoading, selectFilteredContacts } from 'redux/con
 import css from './ContactList.module.css';
 import Spinner from 'components/Spinner/Spinner';
 import Notiflix from 'notiflix';
+import { Box } from '@mui/material';
 
 const ContactList = () => {
     const dispatch = useDispatch();
@@ -18,19 +19,23 @@ const ContactList = () => {
     useEffect(() => {
         dispatch(fetchContacts());
     }, [dispatch]);
-    // const filteredContacts = (filter === '')
-    //     ? contacts
-    //     : contacts.filter(contact => {
-    //         return contact.name.toLowerCase().includes(filter.toLowerCase())
-    //     });
+    
 
     if (error) {
         return Notiflix.Notify.failure(`Ooooops, I'm sorry but something went wrong`)
     }
 
-    // console.log(filteredContacts);
     return (
-        <ul className={css.ContactList__list}>
+        // <ul className={css.ContactList__list}>
+        <Box
+            sx={{
+                m: '0 auto',
+                width: '100%',
+                height: 400,
+                maxWidth: 360,
+                bgcolor: 'background.paper'
+            }}
+        >
             {!error && !isLoading &&
             (filteredContacts.map(({ id, name, number }) => (
             
@@ -52,7 +57,7 @@ const ContactList = () => {
             ))}
             {isLoading && <Spinner/>}
             {error && <p>Ooooops, I'm sorry but something went wrong</p>}
-        </ul>
+        </Box>// </ul>
     )
 }
 

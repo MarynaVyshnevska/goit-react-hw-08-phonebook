@@ -1,12 +1,17 @@
 import { Sidebar } from "./Sidebar/Sidebar"
 import { PropTypes } from "prop-types";
-import { useSelector } from "react-redux";
-import { selectAuthToken } from "redux/auth/auth.selector";
+import { Box } from "@mui/material";
 
 export const Layout = ({ children }) => {
-    const token = useSelector(selectAuthToken);
     return (
-        <div className="">
+        <Box
+            sx={{
+                m: '0 auto',
+                width: '100%',
+                minWidth: 360,
+                bgcolor: 'background.paper'
+            }}
+        >
             <Sidebar />
             <main
                 className=""
@@ -17,9 +22,9 @@ export const Layout = ({ children }) => {
                 >
                     {children}
                 </div>
-                {token ? <p>Token is here</p> : <p>Without token</p>}
             </main>
-        </div>
+        </Box>
+        
     )
 }
 
