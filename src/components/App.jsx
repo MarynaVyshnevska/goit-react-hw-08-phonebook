@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import ContactList from './ContactList';
 import Section from './Section';
 // import Filter from './ContactList/Filter';
-import Header from './Header';
+// import Header from './Header';
 import HomePage from 'pages/HomePage/HomePage';
 import { lazy, Suspense } from 'react';
 import { Layout } from './Layout/Layout';
@@ -26,7 +26,7 @@ export const App = () => {
         <Layout>
           <Suspense fallback={<Spinner />}>
             
-            <Header title='My Virtual PhoneBook'/>
+            {/* <Header title='My Virtual PhoneBook'/> */}
             <Routes>
               <Route path='' element={<HomePage />} />
 
