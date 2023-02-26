@@ -1,6 +1,4 @@
-
 import { useState } from "react";
-// import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import Notiflix from "notiflix";
 
@@ -19,6 +17,8 @@ import { authLoginThunk } from "redux/auth/auth.thunk";
 import { selectorAuthStatus } from "redux/auth/auth.selector";
 import { STATUS } from "constans/status.constans";
 import Spinner from "components/Spinner/Spinner";
+import { HeaderButton } from "components/Layout/Navigation/Navigation.styled";
+import { CottageRounded, KeyboardDoubleArrowLeftRounded } from "@mui/icons-material";
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -68,10 +68,8 @@ const LoginPage = () => {
 
     const handleSubmit = async evt => {
         evt.preventDefault();
-        // setIsLoading(true);
         console.log(values)
         try {
-            // const data = await dispatch(authLoginThunk(values)).unwrap();
             await dispatch(authLoginThunk(values)).unwrap();
             Notiflix.Notify.success("It's ok!");
             // console.log(data);
@@ -85,11 +83,21 @@ const LoginPage = () => {
 
     return (
         <>
-            <Link to='/' replace>to home page</Link>
-
+            <IconButton
+                component={Link}
+                color="inherit"
+                to='/'
+                sx={{
+                    mr: '8px',
+                    '&:hover':{background: '#fbe5eb', color: '#b73c58', fontWeight: 700},
+                    '&:focus':{background: '#fbe5eb', color: '#b73c58', fontWeight: 700},
+                }}
+            >
+                <CottageRounded sx={{ color: '#b73c58' }} />
+                <KeyboardDoubleArrowLeftRounded sx={{ color: '#b73c58' }}/>
+            </IconButton>
             {status === STATUS.loading && <Spinner/>}
-            <h2>Login Page</h2>
-
+            
             <Box
                 component="form"
                 sx={{'& .MuiTextField-root': { m: 1, width: '25ch' },}}
@@ -108,7 +116,17 @@ const LoginPage = () => {
                         required
                         onChange={handleChange}
                     />
-                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                    <FormControl sx={{
+                            m: 1, width: '25ch',
+                            '& label.Mui-focused': {color: '#6f172b',},
+                            '& .MuiInput-underline:after': {borderBottomColor: 'green',},
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {borderColor: '#b73c58',},
+                                '&:hover fieldset': {borderColor: '#bdbdbd',},
+                                '&.Mui-focused fieldset': {borderColor: '#b73c58',},
+                            },
+                        }} variant="outlined"
+                    >
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
@@ -121,7 +139,7 @@ const LoginPage = () => {
                                     onMouseDown={handleMouseDownPassword}
                                     edge="end"
                                     >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    {showPassword ? <VisibilityOff sx={{color: '#b73c58'}} /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -132,9 +150,11 @@ const LoginPage = () => {
                         />
                     </FormControl>
                 </div>
-                <button className="w-100 mt-2 btn btn-lg btn-primary" type="submit">
+                <HeaderButton type='submit'
+                    sx={{color: '#fbe5eb', m: '8px auto'}}>
                     Go to PhoneBook
-                </button>
+                </HeaderButton>
+                
             </Box>
         
         </>

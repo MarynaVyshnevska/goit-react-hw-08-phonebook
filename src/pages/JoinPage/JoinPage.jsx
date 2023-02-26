@@ -1,19 +1,12 @@
 import { useState } from "react";
-// import { Formik, ErrorMessage, Form, Field } from 'formik'; 
-// import Spinner from "components/Spinner/Spinner";
-// import * as yup from 'yup';
 import { Link, useNavigate } from "react-router-dom";
-
 import {Box, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
-// import {VisibilityOff, Visibility} from '@mui/icons-material';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Visibility from '@mui/icons-material/Visibility';
+import {VisibilityOff, Visibility} from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-// import axios from "axios";
 import Notiflix from "notiflix";
-// import { publicApi } from "http/http";
 import { authSignUpThunk } from "redux/auth/auth.thunk";
 import { useDispatch } from "react-redux";
+import { HeaderButton } from "components/Layout/Navigation/Navigation.styled";
 
 const inittialValues = {
     email: '',
@@ -123,7 +116,17 @@ const JoinPage = () => {
                     onChange={handleChange}
                     value={values.email}
                 />
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{
+                            m: 1, width: '25ch',
+                            '& label.Mui-focused': {color: '#6f172b',},
+                            '& .MuiInput-underline:after': {borderBottomColor: 'green',},
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {borderColor: '#b73c58',},
+                                '&:hover fieldset': {borderColor: '#bdbdbd',},
+                                '&.Mui-focused fieldset': {borderColor: '#b73c58',},
+                            },
+                        }} variant="outlined"
+                    >
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -136,7 +139,7 @@ const JoinPage = () => {
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                             >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                {showPassword ? <VisibilityOff sx={{color: '#b73c58'}} /> : <Visibility />}
                             </IconButton>
                         </InputAdornment>
                         }
@@ -147,12 +150,21 @@ const JoinPage = () => {
                         value={values.password}
                     />
                 </FormControl>
-                <Link to='login' className='d-block my-4'>
-                    Already has account?
-                </Link>
-                <button className="w-100 mt-2 btn btn-lg btn-primary" type="submit">
+                <br/>
+                <HeaderButton
+                    type='submit'
+                    sx={{color: '#fbe5eb', m: '8px auto'}}
+                >
                     Sign In
-                </button>
+                </HeaderButton>
+                <HeaderButton
+                    component={Link}
+                    to='/login'
+                    type='button'
+                    sx={{color: '#fbe5eb', m: '8px auto', ml: '16px'}}
+                >
+                    I have account
+                </HeaderButton>
             </Box>
             
         </>

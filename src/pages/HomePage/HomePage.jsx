@@ -14,7 +14,7 @@ const HomePage = () => {
                     m: '60px auto',
                     width: '80%',
                     maxWidth: '600px',
-
+                    
                 }}>
                 <Card>
                     <CardContent>
@@ -26,7 +26,7 @@ const HomePage = () => {
                         </Typography>
                         <Typography variant="body2" sx={{mb: '24px'}}>
                             Created with the following technologies: React, Redux Toolkit, Redux Persist,
-                            Material UI and other
+                            Material UI, Formik and other
                         </Typography>
                         <Typography variant='h6' align='center' sx={{color: '#b73c58'}}>
                             Register or log in and search for the contacts of loved ones you need

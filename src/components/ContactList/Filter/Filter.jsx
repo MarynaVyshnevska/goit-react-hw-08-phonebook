@@ -1,50 +1,65 @@
 import React from "react";
-// import PropTypes from 'prop-types';
-import css from './Filter.module.css';
+// import css from './Filter.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { filteredContacts } from "redux/contact/filter.slice";
-import { TextField } from "@mui/material";
-// import { purple } from "@mui/material/colors";
+import { Container, styled, TextField, Typography } from "@mui/material";
+
+const CssTextField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: '#6f172b',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'green',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#b73c58',
+    },
+    '&:hover fieldset': {
+      borderColor: '#bdbdbd',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#b73c58',
+    },
+  },
+});
 
 const Filter = () => {
     const dispatch = useDispatch();
     const filter = useSelector(state => state.filter);
-
     
     const handleFilter = evt => {
         dispatch(filteredContacts(evt.currentTarget.value))
     }
     
-    
     return (
-        <label>
-            <p className={css.Filter__filter}>
+        <Container
+            sx={{
+                    width: '80%',
+                    maxWidth: '500px',
+                    alignItems: 'center',
+                    m: '0 auto',
+            }}
+        >
+            <Typography variant='h6' align='center' sx={{color: '#b73c58', mt: '16px'}}>
                 Find contacts by name 
-            </p>
-            
-            <TextField
+            </Typography>
+            <CssTextField
+                id="custom-css-outlined-input"
                 label='Name'
                 type="text"
                 value={filter}
+                multiline
+                fullWidth
                 onChange={handleFilter}
-                variant="standard"
                 helperText="Enter a name for search"
-                // textColo
-        
                 sx={{
-                    m: '20px',
-                    width: '50%',
-                    // textColor :'#b73c58,
+                    m: '16px auto',
+                    // width: '50%',
                 }}
-                // color='#b73c58'
             />
-        </label> 
-
+        </Container>
     );
 }
 
 export default Filter;
-
-// Filter.propTypes = {
-//     value: PropTypes.string,
-// }

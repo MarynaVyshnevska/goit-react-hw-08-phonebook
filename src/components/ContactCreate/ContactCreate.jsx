@@ -1,14 +1,14 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { nanoid } from 'nanoid';
-import { Formik, ErrorMessage } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
-
-import { TfiCommentsSmiley } from "react-icons/tfi";
-
-// import { addContactAction } from 'redux/contact/contact.slice';
-import { FormPhone, InputPhone } from './ContactCreate.styled';
 import { addContactThunk } from 'redux/contact/contact.thunk';
+import { Container, styled, TextField, Typography } from '@mui/material';
+import { STATUS } from 'constans/status.constans';
+import Spinner from 'components/Spinner/Spinner';
+import { selectIsLoading } from 'redux/contact/selectors';
+import { HeaderButton } from 'components/Layout/Navigation/Navigation.styled';
+import { AddReactionRounded } from '@mui/icons-material';
 
 const initialValues ={
     name: '',
@@ -21,64 +21,102 @@ const schemaContact = yup.object().shape({
 })
 
 
-const ContactCreate = () => {
+const CssTextField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: '#6f172b',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'green',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#b73c58',
+    },
+    '&:hover fieldset': {
+      borderColor: '#bdbdbd',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#b73c58',
+    },
+  },
+});
 
+const ContactCreate = () => {
+    const status = useSelector(selectIsLoading);
+    
     const dispatch = useDispatch();
-        
-    const handleSubmit = (values, {resetForm}) => {
-        console.log(values);
-        const formContactData = values;
-        dispatch(addContactThunk({
-            // contactId: nanoid(),
-            ...formContactData
-        }));
-        
-        resetForm();
-    }
+    const formik = useFormik({
+        initialValues,
+        validationSchema: schemaContact,
+        onSubmit: (values, { resetForm }) => {
+            console.log(values);
+            const formContactData = values;
+            dispatch(addContactThunk({
+                
+                ...formContactData
+            }));
+            
+            resetForm();
+
+        }
+    })
 
     return (
-            <Formik
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-                validationSchema={schemaContact}
-            >
-            <FormPhone  >
-                <div>
-                    <label>
-                        <p>Name</p>
-                        <InputPhone
-                            type="text"
-                            name="name"
-                            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                            required
-                        />
-                        <ErrorMessage name="name" component="div"/>    
-                    </label>
-                    <label>
-                        <p >Phone</p>
-                        <InputPhone
-                            type="tel"
-                            name="number"
-                            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                            required
-                        />
-                        <ErrorMessage name="number" component="div"/>      
-                    </label>
-                </div>
+        <Container
+            sx={{
+                width: '80%',
+                maxWidth: '500px',
+                alignItems: 'center',
+                m: '0 auto',
+                border: 'thick double #b73c58',
+        }}>
+            {status === STATUS.loading && <Spinner />}
+            
+            <form onSubmit={formik.handleSubmit} >
+                <Typography variant='h5' align='center' sx={{color: '#b73c58', mt: '16px'}}>
+                    Add new contact
+                </Typography>
                 
-                <button type="submit">
-                    Add contacts <TfiCommentsSmiley size={14} />
-                </button>
-            </FormPhone>
-            </Formik>
+                <CssTextField
+                    id="custom-css-outlined-input"
+                    label="Contact Name"
+                    multiline
+                    fullWidth
+                    name="name"
+                    required
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    error={formik.touched.text && Boolean(formik.errors.text)}
+                    helperText={formik.touched.text && formik.errors.text}
+                    sx={{m: '16px auto' }}
+                />
+                <CssTextField
+                    id="custom-css-outlined-input"
+                    label="Contact Number"
+                    multiline
+                    fullWidth
+                    name="number"
+                    required
+                    value={formik.values.number}
+                    onChange={formik.handleChange}
+                    error={formik.touched.text && Boolean(formik.errors.text)}
+                    helperText={formik.touched.text && formik.errors.text}
+                    sx={{m: '16px auto' }}
+                />
+                <HeaderButton
+                    type='submit'
+                    sx={{color: '#fbe5eb', m: '8px auto'}}
+                >
+                    Add contacts <AddReactionRounded sx={{ml: '8px'}} />
+                </HeaderButton>
+            </form>
+            
+        </Container>
         )
     };
 
 export default ContactCreate;
 ContactCreate.propTypes = {
-    // contactId: PropTypes.string,
     name: PropTypes.string,
     phone: PropTypes.string,
 }

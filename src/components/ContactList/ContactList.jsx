@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TfiCut } from "react-icons/tfi";
 import { deleteContactThunk, fetchContacts } from 'redux/contact/contact.thunk';
-// import PropTypes from 'prop-types';
 import { selectError,  selectIsLoading, selectFilteredContacts } from 'redux/contact/selectors';
 import css from './ContactList.module.css';
 import Spinner from 'components/Spinner/Spinner';
 import Notiflix from 'notiflix';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import { DeleteRounded } from '@mui/icons-material';
+
 
 const ContactList = () => {
     const dispatch = useDispatch();
@@ -26,7 +26,6 @@ const ContactList = () => {
     }
 
     return (
-        // <ul className={css.ContactList__list}>
         <Box
             sx={{
                 m: '0 auto',
@@ -46,13 +45,19 @@ const ContactList = () => {
                     }).join(" ")}
                     </p>
                     <p className={css.ContactList__phone}>{number}</p>
-                    <button
+                    <Button
                         type="button"
-                        className={css.ContactList__button}
+                        size="small"
                         onClick={() => dispatch(deleteContactThunk(id))}
+                        sx={{
+                            color: '#b73c58', 
+                            height: '30px',
+                            '&:hover': { background: '#b73c58', color: '#fbe5eb' },
+                            '&:focus': {background: '#b73c58', color: '#fbe5eb'}
+                        }}
                     >
-                        Delete <TfiCut size={10} />
-                    </button>
+                        Delete <DeleteRounded sx={{ml: '8px'}} />
+                    </Button>
                 </li>)
             ))}
             {isLoading && <Spinner/>}
@@ -62,11 +67,3 @@ const ContactList = () => {
 }
 
 export default ContactList;
-
-// ContactList.propTypes = {
-//     filteredContacts: PropTypes.arrayOf(PropTypes.exact({
-//       contactId: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       phone: PropTypes.string.isRequired,
-//     })),
-// }

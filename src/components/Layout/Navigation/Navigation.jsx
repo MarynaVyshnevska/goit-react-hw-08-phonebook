@@ -46,9 +46,9 @@ export const Navigation = ({title}) => {
                                 component={Link}
                                 color="inherit"
                                 to='contacts'
-
+                                sx={{mr: '8px'}}
                             >
-                                {profile.name}'s <MenuBookRounded sx={{ml: '8px', mr: '8px'}}/>
+                                {profile.name}'s <MenuBookRounded sx={{ml: '8px'}}/>
                         </HeaderButton>
                         <HeaderIconButton
                             aria-label="LogOut"
@@ -76,7 +76,7 @@ export const Navigation = ({title}) => {
                                 to='login'
                             >
                             LogIn
-                            </HeaderButton>
+                        </HeaderButton>
                     </>
                 }
             </Toolbar>
