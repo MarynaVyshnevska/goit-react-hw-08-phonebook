@@ -28,29 +28,43 @@ const contactSlice = createSlice({
         }).addCase(addContactThunk.fulfilled, (state, { payload }) => {
             state.status = STATUS.success;
             state.isLoading = false;
-            const newContactName = state.items.find(item => (
-                item.name.toLowerCase() === payload.name.toLowerCase()
-            ));
-            if (newContactName) {
-                return Notiflix.Notify.warning(`Contact with name "${newContactName.name}" is already in your phonebook `)
-            }
-            const newContactPhone = state.items.find(item => (
-                item.number === payload.number
-            ));
-            if (newContactPhone) {
-                return Notiflix.Notify.warning(`Contact with phonenumber "${newContactPhone.number}" is already in your phonebook `)
-            }
-            
             state.items.push(payload);
-
-
+            
+            // const newContactName = state.items.find(item => (
+            //     item.name.toLowerCase() === payload.name.toLowerCase()
+            //     ));
+            // const newContactPhone = state.items.find(item => (
+            //     item.number === payload.number
+            // ));
+            // if (newContactName) {
+            //     return Notiflix.Notify.warning(`Contact with name "${newContactName.name}" is already in your phonebook `)
+            // } if (newContactPhone) {
+            //     return Notiflix.Notify.warning(`Contact with phonenumber "${newContactPhone.number}" is already in your phonebook `)
+            // } else {
+            //     state.items.push(payload);
+            // }
+            
             // const newContact = payload;
             // if (state.items.some(({ name }) =>
             //     name.toLowerCase() === payload.name.toLowerCase())) {
+                
             //     return Notiflix.Notify.warning(`Contact with name "${newContact.name}" is already in your phonebook `)
+                
             // } if (state.items.some(({ number }) =>
             //     number === payload.number)) {
             //     return Notiflix.Notify.warning(`Contact with phonenumber "${newContact.number}" is already in your phonebook `)
+            // } else {
+            //     state.items.push(payload);
+            //     Notiflix.Notify.success(`Your new contact was created`)
+            // }            
+            
+
+
+            // const newContact = payload;
+            // if (state.items.some(({ name, number }) =>
+            //     name.toLowerCase() === payload.name.toLowerCase() || number === payload.number)) {
+            //     return Notiflix.Notify.warning(`Contact with name "${newContact.name}" or phonenumber "${newContact.number}" is already in your phonebook `)
+                
             // } else {
             //     state.items.push(payload);
             //     Notiflix.Notify.success(`Your new contact was created`)
@@ -76,9 +90,11 @@ const contactSlice = createSlice({
                 state.status = STATUS.loading;
         }).addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
             state.status = STATUS.success;
-            state.items = state.items.filter(item => item.contactId !== payload.contactId);
+            // state.items = state.items.filter(item => item.contactId !== payload.contactId);
             Notiflix.Notify.success('Your contact deleted successfully!');
             state.isLoading = false;
+            const i = state.items.findIndex(item => item.contactId !== payload.contactId);
+            state.items.splice(i, 1);
         }).addCase(deleteContactThunk.rejected, (state, { payload }) => {
             state.isLoading = false;
             state.error = payload;

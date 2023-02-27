@@ -12,11 +12,10 @@ const HomePage = () => {
             <Container
                 sx={{
                     m: '60px auto',
-                    width: '80%',
-                    maxWidth: '600px',
+                    
                     
                 }}>
-                <Card>
+                <Card sx={{m: '0 auto', width: '80%', maxWidth: '600px',}}>
                     <CardContent>
                         <Typography variant='h6' align='center' sx={{color: '#b73c58'}}>
                             For those who lose their gadgets, the necessary contacts are always at hand

@@ -104,6 +104,7 @@ const LoginPage = () => {
                 noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
+                // action="/contacts" not working
                 >
                 <div>
                     <CssTextField
@@ -150,8 +151,10 @@ const LoginPage = () => {
                         />
                     </FormControl>
                 </div>
-                <HeaderButton type='submit'
-                    sx={{color: '#fbe5eb', m: '8px auto'}}>
+                <HeaderButton
+                    type='submit'
+                    sx={{ color: '#fbe5eb', m: '8px auto' }}
+                >
                     Go to PhoneBook
                 </HeaderButton>
                 

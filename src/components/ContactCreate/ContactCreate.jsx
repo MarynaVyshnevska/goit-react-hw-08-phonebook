@@ -6,9 +6,10 @@ import { addContactThunk } from 'redux/contact/contact.thunk';
 import { Container, styled, TextField, Typography } from '@mui/material';
 import { STATUS } from 'constans/status.constans';
 import Spinner from 'components/Spinner/Spinner';
-import { selectIsLoading } from 'redux/contact/selectors';
+import { selectContacts, selectIsLoading } from 'redux/contact/selectors';
 import { HeaderButton } from 'components/Layout/Navigation/Navigation.styled';
 import { AddReactionRounded } from '@mui/icons-material';
+import Notiflix from 'notiflix';
 
 const initialValues ={
     name: '',
@@ -43,24 +44,33 @@ const CssTextField = styled(TextField)({
 
 const ContactCreate = () => {
     const status = useSelector(selectIsLoading);
-    
+    const contacts = useSelector(selectContacts);
     const dispatch = useDispatch();
+
     const formik = useFormik({
         initialValues,
         validationSchema: schemaContact,
         onSubmit: (values, { resetForm }) => {
-            console.log(values);
-            const formContactData = values;
-            dispatch(addContactThunk({
-                
-                ...formContactData
-            }));
-            
+            addNewContact(values);
             resetForm();
 
         }
     })
 
+    const addNewContact = (newContact) => {
+        console.log(newContact);
+        if (contacts.some(({ name }) =>
+            name.toLowerCase() === newContact.name.toLowerCase())) {
+            
+            return Notiflix.Notify.warning(`Contact with name "${newContact.name}" is already in your phonebook `)
+        } if (contacts.some(({ number }) =>
+            number === newContact.number)) {
+            return Notiflix.Notify.warning(`Contact with phonenumber "${newContact.number}" is already in your phonebook `)
+        } else {
+            dispatch(addContactThunk({...newContact}));
+            return Notiflix.Notify.success(`Your new contact was created`)
+        }  
+    }
     return (
         <Container
             sx={{
